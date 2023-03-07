@@ -1,5 +1,5 @@
-#ifndef JFTPS_H
-#define JFTPS_H
+#ifndef SERVER_H
+#define SERVER_H
 
 #include <boost/asio.hpp>
 #include <iostream>
@@ -23,6 +23,7 @@ private:
 
     tcp::acceptor acceptor_;
     streambuf request_;
+    io_context* ioio;
 };
 }
 

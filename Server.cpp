@@ -8,6 +8,7 @@ namespace fs = boost::filesystem;
 
 namespace jft {
 Server::Server(io_context& io_context, const tcp::endpoint& endpoint) : acceptor_(io_context, endpoint) {
+    ioio = &io_context;
     startAccept(io_context);
 }
 
@@ -67,6 +68,8 @@ void Server::processReq(const std::string& message, const std::shared_ptr<tcp::s
 
             res = "---EOF---";
             socket->write_some(buffer(res));
+            ioio->stop();
+            delete ioio;
         }
         else {
             std::string res = "550 Not Found\r\n";

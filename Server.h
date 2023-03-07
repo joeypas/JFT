@@ -9,9 +9,10 @@
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
-class JFTPS {
+namespace jft {
+class Server {
 public:
-    JFTPS(io_context& io_context, const tcp::endpoint& endpoint);
+    Server(io_context& io_context, const tcp::endpoint& endpoint);
 
 private:
     void startAccept(io_context& io_context);
@@ -23,6 +24,7 @@ private:
     tcp::acceptor acceptor_;
     streambuf request_;
 };
+}
 
 
 #endif

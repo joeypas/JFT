@@ -9,9 +9,15 @@ find_package(Boost COMPONENTS filesystem system regex REQUIRED)
 include_directories( ${Boost_INCLUDE_DIR} )
 link_directories( ${Boost_LIBRARY_DIR} )
 
-add_executable(client Client.cpp)
+set(SOURCE_FILES Server.cpp Client.cpp)
 
-add_executable(server JFTPS.cpp)
+add_library(jft STATIC ${SOURCE_FILES})
 
-target_link_libraries( server ${Boost_LIBRARIES} )
-target_link_libraries( client ${Boost_LIBRARIES} )
+target_link_libraries( jft ${Boost_LIBRARIES} )
+
+add_executable(ServerTest ServerTest.cpp)
+add_executable(ClientTest ClientTest.cpp)
+
+target_link_libraries(ServerTest jft)
+target_link_libraries(ClientTest jft)
+

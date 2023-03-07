@@ -1,12 +1,9 @@
 #include "Client.h"
-#include <fstream>
-#include <iostream>
-#include <chrono>
 
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
-
+namespace jft {
 Client::Client(io_context& io_context, const std::string& address) : socket_(io_context) {
     tcp::resolver resolver(io_context);
     tcp::resolver::query query(address, "5511");
@@ -35,7 +32,6 @@ void Client::retFile(const std::string& filename) {
         bool finished = false;
 
         
-        auto start = std::chrono::high_resolution_clock::now();
         read_until(socket_, fileBuf, "---EOF---");
 
         std::ofstream f("(1)" + filename, std::ios::binary);
@@ -48,11 +44,6 @@ void Client::retFile(const std::string& filename) {
 
         
         f.close();
-        auto stop = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
-        std::cout << duration.count() << std::endl;
-
 
     } else {
         std::cout << res << std::endl;
@@ -71,14 +62,5 @@ void Client::retDir(const std::string& dirname) {
     std::cout << res;
 
 }
-
-int main() {
-    try{
-        io_context io_context;
-        Client client(io_context, "localhost");
-        client.retDir(".");
-        client.retFile("CMakeCache.txt");
-    } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
 }
+

@@ -68,7 +68,6 @@ void Server::processReq(const std::string& message, const std::shared_ptr<tcp::s
 
             res = "---EOF---";
             socket->write_some(buffer(res));
-            ioio->stop();
         }
         else {
             std::string res = "550 Not Found\r\n";

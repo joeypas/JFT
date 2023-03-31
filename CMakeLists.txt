@@ -1,16 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(ClientServer)
 
-set(CMAKE_C_COMPILER /opt/homebrew/opt/llvm/bin/clang)
-set(CMAKE_CXX_COMPILER /opt/homebrew/opt/llvm/bin/clang++)
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_FLAGS "-mtune=native -O3")
 
-set(Boost_INCLUDE_DIR /Users/cshardware/boost_1_81_0)
-set(Boost_LIBRARY_DIR /Users/cshardware/boost_1_81_0/arm64)
 find_package(Boost COMPONENTS filesystem system regex REQUIRED)
-include_directories( ${Boost_INCLUDE_DIR} )
+include_directories( ${Boost_INCLUDE_DIR} 
+                    /usr/local/include)
 link_directories( ${Boost_LIBRARY_DIR} )
 
 set(SOURCE_FILES Server.cpp Client.cpp)
